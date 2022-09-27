@@ -75,13 +75,12 @@ class RegisterPage extends StatelessWidget {
             ElevatedButton(
                 onPressed: () => registerController.register().then((value) {
                       if (value) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => LoginPage()));
+                        Navigator.pop(context);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                     }),
-                child: const Text("Entrar")),
+                child: const Text("Registra-se")),
           ],
         ),
       ),
