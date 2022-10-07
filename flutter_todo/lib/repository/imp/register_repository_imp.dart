@@ -2,27 +2,26 @@
 
 import 'dart:convert';
 
-import 'package:flutter_todo/service/http_service.dart';
 
+import '../../const.dart';
 import '../../models/user_model.dart';
+import '../../service/dio_service.dart';
 import '../register_repository.dart';
 
 class RegisterRepositoryImp extends RegisterRepository{
-  final HttpService httpService;
+  final DioService dioService;
 
-  RegisterRepositoryImp(this.httpService);
+  RegisterRepositoryImp(this.dioService);
 
   @override
   Future<bool> register(User user) async {
-
-    var response = await httpService.getClient().post(
-      Uri.http('127.0.0.1:6000', 'users'),
-      body: jsonEncode({"username":user.username, "name":user.name,  "password":user.password, "email":user.email})
+    
+    var response = await dioService.getDio().post(
+      'http://$baseurl/users',
+      data: jsonEncode({"username":user.username, "name":user.name,  "password":user.password, "email":user.email})
     );
 
-    print(response.body);
-
-    return false;
+    return true;
   }
 
 

@@ -3,36 +3,34 @@ import 'dart:convert';
 
 import 'package:flutter_todo/models/user_model.dart';
 
-import '../../service/http_service.dart';
+import '../../const.dart';
+import '../../service/dio_service.dart';
 import '../home_repository.dart';
 
 
 
 class HomeRepositoryImp extends HomeRepository {
 
-  late HttpService httpService;
+  final DioService dioService;
 
   HomeRepositoryImp({
-    required this.httpService,
+    required this.dioService,
   });
 
 
 
   @override
   Future<List<User>> fetch() async {
-    var url = Uri.http('127.0.0.1:6000', 'users');
-    var response = await httpService.getClient().get(url);
+    var response = await dioService.getDio().get('http://$baseurl/users');
 
-    List<dynamic> list = (jsonDecode(response.body)['data']);
+    List<dynamic> list = response.data['data'];
 
     return list.map((e)=>User.fromMap(e)).toList();
   }
 
   @override
   Future<void> deleteUser(id) async {
-    var url = Uri.http('127.0.0.1:6000', '/users/$id');
-    var response = await httpService.getClient().delete(url);
-
+    var response = await dioService.getDio().delete('http://$baseurl/users/$id');
   }
 
 }

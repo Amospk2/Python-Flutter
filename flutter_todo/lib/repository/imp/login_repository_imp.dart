@@ -1,21 +1,23 @@
 import 'dart:convert';
-
 import 'package:flutter_todo/repository/login_repository.dart';
-import '../../service/http_service.dart';
-class LoginRepositoryImp extends LoginRepository{
-  final HttpService httpService;
+import '../../const.dart';
+import '../../service/dio_service.dart';
+import 'package:dio/dio.dart';
 
-  LoginRepositoryImp({required this.httpService});
+class LoginRepositoryImp extends LoginRepository{
+  final DioService dioService;
+
+  LoginRepositoryImp({required this.dioService});
 
   @override
   Future<Map<String, dynamic>> auth(String username, String password) async {
 
-    var response = await httpService.getClient().post(
-      Uri.http('127.0.0.1:6000', 'auth'),
-      body: jsonEncode({"username":username, "password":password})
-    );
 
-    return jsonDecode(response.body);
+    var response = await dioService.getDio().post(
+      'http://$baseurl/auth',
+      data: jsonEncode({"username":username, "password":password})
+    );
+    return Map();
   }
   
 }

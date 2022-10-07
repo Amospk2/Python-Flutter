@@ -18,10 +18,16 @@ class RegisterController {
 
 
   Future<bool> register() async{
-    User newuser = User(id: 0, name: nameController.text, password: passwordController.text, email: emailController.text, username: usernameController.text, created_on: '');
-    var resgisterResponse = await registerRepository.register(newuser);
+    try {
+      User newuser = User(id: 0, name: nameController.text, password: passwordController.text, email: emailController.text, username: usernameController.text, created_on: '');
+      var resgisterResponse = await registerRepository.register(newuser);
+      return true;
+    } catch (e) {
+      return false;
+      
+    }
     
-    return true;
+    
   }
 
 

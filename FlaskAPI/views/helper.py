@@ -9,8 +9,6 @@ from views.users import user_by_username
 import jwt
 from werkzeug.security import check_password_hash
 
-
-
 def auth():
     auth = request.get_json(force=True)
     if not auth or not auth['username'] or not auth['password']:

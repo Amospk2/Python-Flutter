@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/pages/login_page.dart';
-import 'package:flutter_todo/service/http_service_imp.dart';
+import 'package:flutter_todo/service/dio_service_imp.dart';
 import '../controller/register_controller.dart';
 import '../repository/imp/register_repository_imp.dart';
 
@@ -12,7 +12,7 @@ class RegisterPage extends StatelessWidget {
       passwordController: TextEditingController(),
       emailController: TextEditingController(),
       usernameController: TextEditingController(),
-      registerRepository: RegisterRepositoryImp(HttpServiceImp()));
+      registerRepository: RegisterRepositoryImp(DioServiceImp()));
 
   final snackBar = const SnackBar(
     content: Text('Falha ao realizar cadastro!'),

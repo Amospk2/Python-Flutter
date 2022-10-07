@@ -2,7 +2,6 @@ from random import choice
 import string
 from __init__ import app
 
-
 random_str = string.ascii_letters + string.digits + string.ascii_uppercase
 key = '.'.join(choice(random_str) for i in range(12))
 

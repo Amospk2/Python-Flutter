@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/controller/login_controller.dart';
 import 'package:flutter_todo/pages/register_page.dart';
-import 'package:flutter_todo/service/http_service_imp.dart';
+import 'package:flutter_todo/service/dio_service_imp.dart';
 import '../repository/imp/login_repository_imp.dart';
 import 'home_page.dart';
 
@@ -11,7 +12,7 @@ class LoginPage extends StatelessWidget {
   final LoginController _loginController = LoginController(
       nomeController: TextEditingController(),
       senhaController: TextEditingController(),
-      loginRepositoryImp: LoginRepositoryImp(httpService: HttpServiceImp()));
+      loginRepositoryImp: LoginRepositoryImp(dioService: DioServiceImp()));
 
   final snackBar = const SnackBar(
     content: Text('Falha ao realizar login!'),
@@ -22,8 +23,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 220, 226, 255),
-      body: 
-      Padding(
+      body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -57,21 +57,27 @@ class LoginPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              TextButton(
-                onPressed: () => _loginController.auth().then((value) {
-                      if (value) {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (_) => HomePage()));
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    }),
-                child: const Text("Entrar")),
-              Spacer(),
-            TextButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_)=> RegisterPage(), fullscreenDialog: true)),
-                child: const Text("Registrar-se")),
-            ],)
+                TextButton(
+                    onPressed: () => _loginController.auth().then((value) {
+                          if (value) {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (_) => HomePage()));
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        }),
+                    child: const Text("Entrar")),
+                Spacer(),
+                TextButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => RegisterPage(),
+                            fullscreenDialog: true)),
+                    child: const Text("Registrar-se")),
+              ],
+            )
           ],
         ),
       ),

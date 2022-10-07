@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/repository/edit_repository.dart';
 import '../models/user_model.dart';
-import '../repository/register_repository.dart';
 
 
 class EditController {
@@ -21,10 +20,15 @@ class EditController {
 
 
   Future<bool> update(id) async{
-    User newuser = User(id: id, name: nameController.text, password: passwordController.text, email: emailController.text, username: usernameController.text, created_on: '');
-    var resgisterResponse = await editRepository.update(newuser);
-    
-    return true;
+    try {
+      User newuser = User(id: id, name: nameController.text, password: passwordController.text, email: emailController.text, username: usernameController.text, created_on: '');
+      var resgisterResponse = await editRepository.update(newuser);
+      
+      return true;
+    } catch (e) {
+      return false;
+      
+    }
   }
 
 

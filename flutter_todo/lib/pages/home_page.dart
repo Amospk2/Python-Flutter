@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/controller/home_controller.dart';
 import 'package:flutter_todo/pages/login_page.dart';
-
-import 'package:flutter_todo/service/http_service_imp.dart';
-
+import 'package:flutter_todo/service/dio_service_imp.dart';
 import '../controller/edit_controller.dart';
 import '../models/user_model.dart';
 import '../repository/imp/edit_repository_imp.dart';
@@ -12,7 +10,7 @@ import '../repository/imp/home_repository_imp.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   final HomeController _homeController =
-      HomeController(HomeRepositoryImp(httpService: HttpServiceImp()));
+      HomeController(HomeRepositoryImp(dioService: DioServiceImp()));
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +68,7 @@ buildDialod(BuildContext context, User user, HomeController _homeController)
           passwordController: TextEditingController(),
           emailController: TextEditingController(),
           usernameController: TextEditingController(),
-          editRepository: EditRepositoryImp(HttpServiceImp()));
+          editRepository: EditRepositoryImp(DioServiceImp()));
 
   return showDialog<String>(
         context: context,

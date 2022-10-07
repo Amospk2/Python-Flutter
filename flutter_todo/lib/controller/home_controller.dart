@@ -17,7 +17,7 @@ class HomeController{
     try{
       users!.value = await homeRepository.fetch();
     }catch(e){
-      print(e);
+     print(e.toString());
     }
   }
 
