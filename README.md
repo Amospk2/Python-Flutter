@@ -4,7 +4,7 @@
 - SQLAlchemy
 ---
 #### Flutter - MOBILE
-- Http
+- Dio
 ---
 
 <img src="images/EditModal.png" heigth=200 width="400">
