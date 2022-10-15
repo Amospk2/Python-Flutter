@@ -1,6 +1,6 @@
-# Python Flask-API / API REST usando framework Flask com SQLAlchemy e Marshmallow
+# Python API REST usando framework Flask
 
-# Inspirado no seguinte projeto: https://github.com/hedgarbezerra/Another-FlaskAPI
+## Inspirado no seguinte projeto: https://github.com/hedgarbezerra/Another-FlaskAPI
 
 ## How-To
 
