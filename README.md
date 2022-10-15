@@ -5,6 +5,8 @@
 ---
 #### Flutter - MOBILE
 - Dio
+- Provider como State Management
+- Arquitetura baseada em Features!
 ---
 
 <img src="images/EditModal.png" heigth=200 width="400">
