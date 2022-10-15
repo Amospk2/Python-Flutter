@@ -1,17 +1,13 @@
-import 'dart:convert';
-import 'package:flutter_todo/repository/login_repository.dart';
-import '../../const.dart';
-import '../../service/dio_service.dart';
+/* import 'dart:convert';
 import 'package:dio/dio.dart';
 
-class LoginRepositoryImp extends LoginRepository{
+class AuthRepositoryImp extends AuthRepository{
   final DioService dioService;
 
-  LoginRepositoryImp({required this.dioService});
+  AuthRepositoryImp({required this.dioService});
 
   @override
   Future<Map<String, dynamic>> auth(String username, String password) async {
-
 
     var response = await dioService.getDio().post(
       'http://$baseurl/auth',
@@ -20,4 +16,4 @@ class LoginRepositoryImp extends LoginRepository{
     return Map();
   }
   
-}
+} */

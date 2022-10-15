@@ -1,23 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/pages/login_page.dart';
-import 'package:flutter_todo/service/dio_service_imp.dart';
+import 'package:flutter_todo/src/features/auth/pages/auth_page.dart';
+import 'package:provider/provider.dart';
 import '../controller/register_controller.dart';
-import '../repository/imp/register_repository_imp.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
 
-  RegisterPage({ Key? key}) : super(key: key);
-  final RegisterController registerController = RegisterController(
-      nameController: TextEditingController(),
-      passwordController: TextEditingController(),
-      emailController: TextEditingController(),
-      usernameController: TextEditingController(),
-      registerRepository: RegisterRepositoryImp(DioServiceImp()));
+  const RegisterPage({ Key? key }) : super(key: key);
 
-  final snackBar = const SnackBar(
-    content: Text('Falha ao realizar cadastro!'),
-    duration: Duration(seconds: 5),
-  );
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+
+  late final RegisterController registerController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    registerController = context.read<RegisterController>();
+
+
+    registerController.addListener(() {
+      if (registerController.state == APIResponseType.error) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Error Found!'),
+          duration: Duration(seconds: 2),
+        ));
+      } else if (registerController.state == APIResponseType.sucess) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Sucesso!'),
+          duration: Duration(seconds: 2),
+        ));
+        Navigator.pop(context);
+        
+      }
+    });
+  }
+
+  
 
    @override
    Widget build(BuildContext context) {
@@ -40,7 +62,7 @@ class RegisterPage extends StatelessWidget {
               height: 10,
             ),
             TextField(
-              controller: registerController.emailController,
+              onChanged: (((value) => registerController.createUserInputs['email'] = value)),
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: "Email"),
             ),
@@ -48,7 +70,7 @@ class RegisterPage extends StatelessWidget {
               height: 10,
             ),
             TextField(
-              controller: registerController.usernameController,
+              onChanged: (((value) => registerController.createUserInputs['username'] = value)),
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: "Username"),
             ),
@@ -56,7 +78,7 @@ class RegisterPage extends StatelessWidget {
               height: 10,
             ),
             TextField(
-              controller: registerController.nameController,
+              onChanged: (((value) => registerController.createUserInputs['name'] = value)),
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: "Name"),
             ),
@@ -64,7 +86,7 @@ class RegisterPage extends StatelessWidget {
               height: 10,
             ),
             TextField(
-              controller: registerController.passwordController,
+              onChanged: (((value) => registerController.createUserInputs['password'] = value)),
               obscureText: true,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: "Password"),
@@ -73,13 +95,7 @@ class RegisterPage extends StatelessWidget {
               height: 10,
             ),
             ElevatedButton(
-                onPressed: () => registerController.register().then((value) {
-                      if (value) {
-                        Navigator.pop(context);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    }),
+                onPressed: () => registerController.create(),
                 child: const Text("Registra-se")),
           ],
         ),
